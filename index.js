@@ -13,6 +13,11 @@ const authenticate = async () => {
 
   const { client_secret, client_id, redirect_uris } = credentials.web;
 
+  // redirect_uris가 없는 경우 처리
+  if (!redirect_uris || redirect_uris.length === 0) {
+    throw new Error('Redirect URIs are missing in the credentials.json file.');
+  }
+
   const oAuth2Client = new google.auth.OAuth2(client_id, client_secret, redirect_uris[0]);
 
   if (fs.existsSync(TOKEN_PATH)) {
