@@ -11,7 +11,7 @@ const authenticate = async () => {
   const content = fs.readFileSync(CREDENTIALS_PATH);
   const credentials = JSON.parse(content);
 
-  const { client_secret, client_id, redirect_uris } = credentials.web;
+  const { client_secret, client_id, redirect_uris } = credentials.installed;
 
   // redirect_uris가 없는 경우 처리
   if (!redirect_uris || redirect_uris.length === 0) {
