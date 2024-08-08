@@ -33,3 +33,5 @@ coverage
 
 # local data
 local_data
+
+credentials.json
