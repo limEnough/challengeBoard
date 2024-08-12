@@ -6,27 +6,22 @@
   --font-roboto: "Roboto Mono"
 
   // Basic
-  --black: #262626;
-  --gray: #7d7d7d;
+  --black: #000114;
+  --gray: #485569;
   --white: #fff;
-  --base: #3F2D9D;
-
-  // Background
-  --background-start--light: #EAEFF4;
-  --background-end--light: #D2E0EC;
-  --background-start--dark: #5E4FCD;
-  --background-end--dark: #412DA9;
+  --base: #F6F6FB;
+  --point: #7265E3;
 }
 
 // #region Variables
-$width: var(--max-width);
-
+$minWidth: var(--min-width);
+$maxWidth: var(--max-width);
 $fontR: var(--font-roboto);
-
 $black: var(--black);
-$gray: var(--gray);
 $white: var(--white);
+$gray: var(--gray);
 $base: var(--base);
+$point: var(--point);
 // #endregion
 
 // #region Reset
@@ -42,15 +37,12 @@ html,
 body {
   height: 100%;
   overflow-x: hidden;
-  font-family: $fontR;
+  font-family: var(--font-roboto);
+  background: var(--base) !important;
 }
 
-body {
-  background: linear-gradient( #EAEFF4, #D2E0EC);
-
-  &.ReactModal__Body--open {
-    overflow-y: hidden;
-  }
+body.ReactModal__Body--open {
+  overflow-y: hidden;
 }
 
 html,
@@ -304,9 +296,3 @@ details {
   }
 }
 // #endregion
-
-@media (prefers-color-scheme: dark) {
-  body {
-    background: linear-gradient(#5E4FCD, #412DA9)
-  }
-}
