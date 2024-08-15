@@ -1,3 +1,10 @@
 {
-  "extends": "next/core-web-vitals"
+  "extends": [
+    "next/core-web-vitals",
+    "prettier" // eslint-config-prettier 에서 제공하는 설정을 활성화하여 Prettier와 충돌하는 몇 가지 ESLint 규칙을 무시한다.
+  ],
+  "rules": {
+    "react/no-unescaped-entities": "off",
+    "@next/next/no-page-custom-font": "off"
+  }
 }
