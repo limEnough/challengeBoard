@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const path = require('path');
+
 const nextConfig = {
   experimental: {
     /*
@@ -6,6 +8,10 @@ const nextConfig = {
       missingSuspenseWithCSRBailout: false 설정을 통해 Suspense 컴포넌트의 CSR 대체를 허용하지 않음으로써 SSR에서 발생할 수 있는 문제를 명확히 파악할 수 있게 함
     */
     missingSuspenseWithCSRBailout: false,
+    sassOptions: {
+      includePaths: [path.join(__dirname, 'styles')], // sassOptions 옵션 추가
+      prependData: `@import "styles/_variables.scss"; @import "styles/_mixins.scss";`, // prependData 옵션 추가
+    },
   },
 };
 

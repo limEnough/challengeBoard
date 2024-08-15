@@ -1,0 +1,74 @@
+// #region fontCss
+@mixin fontCss($color: $black, $size: 16px, $line: 24px, $weight: 400, $family: $noto) {
+  color: $color;
+  font-size: $size;
+  font-weight: $weight;
+  font-family: $family;
+  line-height: $line;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: keep-all;
+}
+// #endregion
+
+// #region 줄바꿈 처리
+@mixin lineWrap() {
+  white-space: pre-line;
+}
+// #endregion
+
+// #region 말줄임 후략
+@mixin line($lineCount: 1) {
+  /* 사용법 : @include line(라인수) */
+  @if ($lineCount == 1) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else if($lineCount == 'auto') {
+    display: block;
+    overflow: visible;
+  } @else {
+    display: block;
+    display: -webkit-box;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lineCount;
+  }
+}
+// #endregion
+
+// #region Dim #fff 기준
+@function dim($opacity: 0.6) {
+  @return rgba(0, 0, 0, $opacity);
+}
+// #endregion
+
+// #region Image Resizing
+@mixin imageResize($type: 'width') {
+  position: relative;
+  overflow: hidden;
+
+  img {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+
+    @if ($type == 'width') {
+      width: 100%;
+      height: auto;
+    } @else if ($type == 'height') {
+      width: auto;
+      height: 100%;
+    } @else if ($type == 'auto') {
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: 100%;
+    }
+  }
+}
+// #endregion

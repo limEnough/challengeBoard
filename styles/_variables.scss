@@ -1,0 +1,23 @@
+:root {
+  // Set
+  --max-width: 768px;
+
+  // Fonts
+  --font-roboto: "Roboto Mono"
+
+  // Basic
+  --black: #000114;
+  --gray: #485569;
+  --white: #fff;
+  --base: #F6F6FB;
+  --point: #7265E3;
+}
+
+$minWidth: var(--min-width);
+$maxWidth: var(--max-width);
+$fontR: var(--font-roboto);
+$black: var(--black);
+$white: var(--white);
+$gray: var(--gray);
+$base: var(--base);
+$point: var(--point);
