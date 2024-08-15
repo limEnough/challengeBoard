@@ -1,0 +1,14 @@
+/*
+  [공식문서] 참고
+  https://prettier.io/docs/en/options
+*/
+{
+  "semi": true,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "singleAttributePerLine": true,
+  "bracketSameLine": true,
+  "endOfLine": "lf", // EoF 방식, OS별로 처리 방식이 다름 
+  "trailingComma": "none", // 여러 줄을 사용할 때, 후행 콤마 사용 않기
+  "arrowParens": "avoid" // 화살표 함수 괄호 생략
+}
