@@ -1,0 +1,110 @@
+
+/* React-Calendar Custom */
+.react-calendar {
+	width: 100%;
+  padding: 20px 10px 10px;
+	background: white;
+  border-radius: 14px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+
+  /* 공통 */
+	button {
+		&:enabled {
+			&:hover {
+				cursor: pointer;
+			}
+		}
+
+    abbr {
+      @include fontCss($black, 14px, 18px);
+    }
+	}
+
+  /* 네비게이션 */
+  &__navigation {
+    display: flex;
+    justify-content: center;
+    height: 40px;
+    margin-bottom: 10px;
+  
+    &__label {
+      flex-grow: 0 !important;
+      @include fontCss($black, 15px, 15px, 600);
+    }
+  
+    &__arrow {
+      width: 40px;
+      margin: 0 20px;
+      @include fontCss($black, 20px, 20px, 800);
+    }
+  }
+
+  /* 요일 */
+  &__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    
+    &__weekday {
+      padding: 10px;
+    
+      abbr {
+        @include fontCss($black, 14px, 14px, 600);
+        text-decoration: none !important;
+      }
+
+      abbr[title="일요일"] {
+        color: $point !important;
+      }
+    }
+  }
+
+  /* 날짜 */
+  &__tile {
+    max-width: 100%;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+
+    &:enabled {
+      &:hover {
+        background-color: $base;
+      }
+      &:focus {
+        background-color: $base;
+      }
+    }
+
+    /* 오늘 */
+    &--now {
+      position: relative;
+
+      &.react-calendar__tile--active {
+        abbr {
+          color: $white !important;
+        }
+      } 
+    
+      abbr {
+        color: $point !important;
+        font-weight: 800 !important;
+      }
+    }
+
+    /* active 날짜 */
+    &--active {
+      background: $point;
+      color: $white;
+
+      &:enabled {
+        &:hover {
+          background: $point;
+        }
+        &:focus {
+          background: $point;
+        }
+      }
+    }
+  }
+}

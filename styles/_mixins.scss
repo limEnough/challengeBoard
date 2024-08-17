@@ -1,9 +1,8 @@
 // #region fontCss
-@mixin fontCss($color: $black, $size: 16px, $line: 24px, $weight: 400, $family: $noto) {
+@mixin fontCss($color: $black, $size: 16px, $line: 24px, $weight: 400) {
   color: $color;
   font-size: $size;
   font-weight: $weight;
-  font-family: $family;
   line-height: $line;
   overflow-wrap: break-word;
   word-wrap: break-word;
