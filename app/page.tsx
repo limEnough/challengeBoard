@@ -2,10 +2,10 @@
 
 import { useState } from "react";
 import styles from "./page.module.scss";
-import Header from "./header";
 import Board from "./board";
 import Calendar from "react-calendar";
 import type { SelectedDate } from "./date.types";
+import '../styles/globals.scss';
 
 
 export default function Home() {
@@ -13,7 +13,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <Header />
+      
       
       <div className={styles.calendar}>
         <Calendar 

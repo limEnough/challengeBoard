@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Header from "./header";
 
 export const metadata: Metadata = {
   title: "Do It Daily",
@@ -14,8 +15,10 @@ export default function RootLayout({
     <html lang="en">
       <body>
         {/* Layout UI */}
-        {/* <div className="root">{children}</div> */}
-        {children}
+        <div className="root-layout">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

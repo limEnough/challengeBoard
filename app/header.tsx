@@ -12,6 +12,7 @@ const Header: React.FC = () => {
           alt="Challenge Board Logo"
           width={50}
           height={32}
+          priority // 리소스의 사전 로드 트리거
         />
       </Link>
       
