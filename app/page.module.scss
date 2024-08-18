@@ -5,35 +5,3 @@
   height: 100vh;
   padding: 72px 24px 0;
 }
-
-.header {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  max-width: $maxWidth;
-  min-width: $minWidth;
-  z-index: 100;
-  padding: 20px;
-  font-size: 0;
-  text-align: center;
-  transform: translate(-50%, 0);
-}
-
-.logo {
-  display: inline-block;
-  width: 50px;
-  height: auto;
-}
-
-.board {
-  display: inline-block;
-  border-radius: 15px;
-  background: $white;
-  width: 100%;
-  height: 200px;
-  margin-top: 20px;
-}
-
-.calendar {
-  // ...  
-}

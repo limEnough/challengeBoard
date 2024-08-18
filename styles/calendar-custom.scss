@@ -1,26 +1,31 @@
 
-/* React-Calendar Custom */
+/* 
+  [Global Custom]
+
+  React-Calendar 의 내부 클래스는 전역적으로 정의된 CSS 클래스이기 때문에,
+  CSS 모듈 방식으로는 해당 클래스를 직접적으로 참조할 수 없어 글로벌 파일로 생성
+ */
 .react-calendar {
-	width: 100%;
+  width: 100%;
   padding: 20px 10px 10px;
-	background: white;
+  background: white;
   border-radius: 14px;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
 
   /* 공통 */
-	button {
-		&:enabled {
-			&:hover {
-				cursor: pointer;
-			}
-		}
+  button {
+    &:enabled {
+      &:hover {
+        cursor: pointer;
+      }
+    }
 
     abbr {
       @include fontCss($black, 14px, 18px);
     }
-	}
+  }
 
   /* 네비게이션 */
   &__navigation {
@@ -41,41 +46,56 @@
     }
   }
 
-  /* 요일 */
-  &__month-view__weekdays {
-    text-align: center;
-    text-transform: uppercase;
-    
-    &__weekday {
-      padding: 10px;
-    
-      abbr {
-        @include fontCss($black, 14px, 14px, 600);
-        text-decoration: none !important;
-      }
+  /* 달력 */
+  &__month-view {
+    /* 요일 */
+    &__weekdays {
+      // NOTI: 현재 사용 안 함
+      display: none !important; 
+      text-align: center;
+      text-transform: uppercase;
+      
+      &__weekday {
+        padding: 10px;
+      
+        abbr {
+          @include fontCss($black, 14px, 14px, 600);
+          text-decoration: none !important;
+        }
+  
+        abbr[title="일요일"] {
+          color: $point !important;
+        }
+    }
+    }
 
-      abbr[title="일요일"] {
-        color: $point !important;
+    /* 날짜 */
+    &__days {
+      &__day {
+        max-width: 100%;
+        padding: 10px;
+        text-align: center;
+        border-radius: 10px;
+
+        &:enabled {
+          &:hover {
+            background-color: $base;
+          }
+          &:focus {
+            background-color: $base;
+          }
+        }
+
+        /* 주말 */
+        &--weekend {
+          color: #ccc;
+        }
       }
     }
   }
 
-  /* 날짜 */
+  /* 날짜 타일 */
   &__tile {
-    max-width: 100%;
-    padding: 10px;
-    text-align: center;
-    border-radius: 10px;
-
-    &:enabled {
-      &:hover {
-        background-color: $base;
-      }
-      &:focus {
-        background-color: $base;
-      }
-    }
-
     /* 오늘 */
     &--now {
       position: relative;

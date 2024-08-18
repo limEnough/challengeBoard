@@ -1,0 +1,18 @@
+.header {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  max-width: $maxWidth;
+  min-width: $minWidth;
+  z-index: 100;
+  padding: 20px;
+  font-size: 0;
+  text-align: center;
+  transform: translate(-50%, 0);
+}
+
+.logo {
+  display: inline-block;
+  width: 50px;
+  height: auto;
+}
