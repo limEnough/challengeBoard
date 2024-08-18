@@ -3,6 +3,66 @@
   border-radius: 15px;
   background: $white;
   width: 100%;
-  height: 200px;
-  margin-top: 20px;
+  padding: 18px 14px;
+
+  &.board {
+    width: calc(50% - 6px);
+  }
+}
+
+.link {
+  display: flex;
+  align-items: center;
+
+  img {
+    border-radius: 50%;
+  }
+}
+
+.userInfo {
+  margin-left: 15px;
+  font-size: 0;
+
+  strong {
+    display: block;
+    @include fontCss($black, 16px, 16px, 600);
+  }
+
+  span {
+    display: inline-block;
+    margin-top: 8px;
+    @include fontCss($black, 12px, 12px, 400);
+  }
+}
+
+.grassInfo {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 15px;
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+    @include fontCss($gray, 15px, 20px);
+  }
+}
+
+.duoInfo {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  margin-top: 10px;
+
+  span {
+    display: inline-block;
+    margin-right: 10px;
+    @include fontCss($gray, 15px, 20px);
+  }
+
+  i {
+    padding: 0 5px;
+    display: inline-block;
+    @include fontCss($gray, 26px, 26px, 900);
+  }
 }
