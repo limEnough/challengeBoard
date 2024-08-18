@@ -15,7 +15,7 @@ const calendar = ({date, onChange}: CalendarProps) => {
       onChange={onChange} 
       value={date} 
       locale="ko"
-      calendarType="hebrew" 
+      calendarType="gregory" 
       view="month"
       prev2Label={null}
       next2Label={null}
