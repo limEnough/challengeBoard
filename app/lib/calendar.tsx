@@ -1,6 +1,6 @@
 import React from "react"
+import { format } from "date-fns";
 ;import Calendar from "react-calendar";
-import moment from "moment";
 import type { SelectedDate } from "./date.types";
 import '../../styles/calendar-custom.scss';
 
@@ -20,7 +20,7 @@ const calendar = ({date, onChange}: CalendarProps) => {
       prev2Label={null}
       next2Label={null}
       showNeighboringMonth={false}
-      formatDay={(locale, date) => moment(date).format("DD")}
+      formatDay={(locale, date) => format(date, 'dd')}
     />
   )
 }

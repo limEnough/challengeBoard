@@ -1,9 +1,10 @@
 import Link from 'next/link';
-import type { ApiData } from '../api/api.types';
+import type { ApiSampleData } from '../api/api.types';
 import styles from "./board.module.scss";
 import Image from 'next/image';
+
 interface BoardProps {
-  info: ApiData;
+  info: ApiSampleData;
 }
 
 const Board = ({info}: BoardProps) => {
@@ -22,7 +23,7 @@ const Board = ({info}: BoardProps) => {
 
         {/* 유저 정보 */}
         <div className={styles.userInfo}>
-          <strong>{info.id}</strong>
+          <strong>{info.email}</strong>
           {
             info.name
             ?
@@ -40,7 +41,7 @@ const Board = ({info}: BoardProps) => {
         {/* 상세 페이지 */}
         <Link href='/' className={styles.link}>
           <Image
-            src={info.commitCount > 0 ? 'grass--active.svg' : 'grass.svg'}
+            src={info.pushCount > 0 ? 'grass--active.svg' : 'grass.svg'}
             alt="User Image"
             width={24}
             height={34}

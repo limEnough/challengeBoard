@@ -7,9 +7,10 @@ import Board from "./components/board";
 import Calendar from "./lib/calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./lib/date.types";
-import type { ApiData } from './api/api.types';
+import type { ApiSampleData } from './api/api.types';
+import { fetchUserPushList } from "./api/github";
 import '../styles/globals.scss';
-import { Commit } from "./api/commits";
+import { Commit } from "./api/github.types";
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -17,67 +18,80 @@ const noto = Noto_Sans_KR({
 });
 
 export default function Home() {
-  const sampleData: ApiData[] = [
-    {
-      id: 'limenough',
-      name: 'Jiwon Lim',
-      commitCount: 0,
-      attendedDuo: true,
-    },
-    {
-      id: 'JeonDev',
-      name: '',
-      commitCount: 12,
-      attendedDuo: false,
-    }
-  ];
-
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
-  const [useInfo, setUserInfo] = useState<ApiData[]>(sampleData);
-
-  const [commits, setCommits] = useState<Commit[]>([]);
+  // #region Api
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  // #endregion
 
-  const fetchCommits = useCallback(async () => {
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
+  const [userInfo, setUserInfo] = useState<ApiSampleData[]>([]);
+  
+  // #region Data Custom
+  /** 조회한 깃헙 푸시 내역 데이터 커스텀 */
+  const setGithubData = useCallback((userInfo1: Commit[], userInfo2: Commit[]) => {
+    console.log('실행여부');
+
+    setUserInfo([
+      {
+        email: userInfo1[0].auth.email,
+        name: userInfo1[0].auth.name,
+        pushCount: userInfo1.length,
+        attendedDuo: false,
+      },
+      {
+        email: userInfo2[0].auth.email,
+        name: userInfo2[0].auth.name,
+        pushCount: userInfo2.length,
+        attendedDuo: false,
+      }
+    ])
+  }, [userInfo]);
+  // #endregion
+
+  // #region API
+  /** 깃헙 푸시 내역 조회 */
+  const getGithubPushList = useCallback(async () => {
     setLoading(true);
 
-    const today = selectedDate.toString().split('T')[0]; // YYYY-MM-DD 포맷으로 가져옴
+    const user1 = process.env.NEXT_PUBLIC_GITHUB_HER_USERNAME as string;
+    const user2 = process.env.NEXT_PUBLIC_GITHUB_HIM_USERNAME as string;
 
     try {
-      const response = await fetch(
-        `/api/commits?username=YOUR_GITHUB_USERNAME&repo=YOUR_REPO_NAME&date=${today}`
-      );
+      const userInfo1 = await fetchUserPushList({
+        username: user1,
+        date: selectedDate,
+      });
 
-      const data: Commit[] | { error: string } = await response.json();
+      const userInfo2 = await fetchUserPushList({
+        username: user2,
+        date: selectedDate,
+      });
 
-      if (response.ok) {
-        setCommits(data as Commit[]);
-      } else {
-        setError((data as { error: string }).error);
-      }
+      if (userInfo1 && userInfo2) setGithubData(userInfo1, userInfo2);
     } catch (error) {
-      setError('Failed to fetch commits');
+      setError('Error getGithubPushList');
     } finally {
       setLoading(false);
     }
-  }, [selectedDate]);
+  }, [selectedDate, setGithubData]);
+  // #endregion 
 
-  // 초기 실행
   useEffect(() => {
-    fetchCommits();
-  }, []);
+    getGithubPushList();
+  }, [selectedDate]);
 
   return (
     <main className={classNames(styles.main, noto.className)}>
+      {/* 캘린더 */}
       <Calendar
         date={selectedDate}
         onChange={setSelectedDate}
       />
 
+      {/* 유저 현황 보드 */}
       <section className={styles.board}>
         {
-          useInfo && useInfo.map((info, index) => {
+          userInfo && userInfo.map((info, index) => {
             return (
               <Board
                 info={info}
