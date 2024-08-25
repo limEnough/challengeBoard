@@ -1,0 +1,21 @@
+.loading {
+  width: 100%;
+  padding: 50px 0;
+  background: $white;
+  border-radius: 15px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border: 5px solid #dbdbdb;
+  border-top: 5px solid $point;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
