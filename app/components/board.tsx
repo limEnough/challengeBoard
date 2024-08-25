@@ -1,21 +1,27 @@
 import Link from 'next/link';
-import type { ApiSampleData } from '../api/api.types';
 import styles from "./board.module.scss";
 import Image from 'next/image';
 
+interface Board {
+  name: string;
+  avatarUrl: string;
+  url: string,
+  commitMessages: string[],
+  pushCount: number,
+}
 interface BoardProps {
-  info: ApiSampleData;
+  info: Board;
 }
 
 const Board = ({info}: BoardProps) => {
   return (
     <div className={styles.board}>
       {/* 깃헙 링크 */}
-      <Link href='/' className={styles.link}>
+      <Link href={info.url} className={styles.link}>
         {/* 유저 이미지 */}
         <Image
-          src="/sample.png"
-          alt="User Image"
+          src={info.avatarUrl}
+          alt="User Avatar Image"
           width={32}
           height={32}
           priority
@@ -23,22 +29,15 @@ const Board = ({info}: BoardProps) => {
 
         {/* 유저 정보 */}
         <div className={styles.userInfo}>
-          <strong>{info.email}</strong>
-          {
-            info.name
-            ?
-            <span>{info.name}</span>
-            :
-            <></>
-          }
+          <strong>{info.name}</strong>
         </div>
       </Link>
 
       {/* 깃헙 커밋 정보 */}
       <div className={styles.grassInfo}>
-        <span>오늘의 텃밭은,</span>
+        <span>오늘의 수확</span>
 
-        {/* 상세 페이지 */}
+        {/* TODO: 상세 페이지 */}
         <Link href='/' className={styles.link}>
           <Image
             src={info.pushCount > 0 ? 'grass--active.svg' : 'grass.svg'}
@@ -47,16 +46,17 @@ const Board = ({info}: BoardProps) => {
             height={34}
             priority
           />
+          <strong>{info.pushCount}</strong>
         </Link>
       </div>
 
-      {/* 듀오링고 출석 정보 */}
+      {/* TODO: 듀오링고 출석 정보 */}
       <div className={styles.duoInfo}>
         <span>듀오 했나요?</span>
 
-        {/* 알파벳 이미지 */}
+        {/* info.attendedDuo */}
         <Image
-          src={info.attendedDuo ? 'alphabet--active.svg' : 'alphabet.svg'}
+          src={true ? 'alphabet--active.svg' : 'alphabet.svg'}
           alt="User Image"
           width={24}
           height={32}

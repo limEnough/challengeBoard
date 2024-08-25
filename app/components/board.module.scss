@@ -3,7 +3,7 @@
   border-radius: 15px;
   background: $white;
   width: 100%;
-  padding: 18px 14px;
+  padding: 16px 12px;
 
   &.board {
     width: calc(50% - 6px);
@@ -45,6 +45,21 @@
     display: inline-block;
     margin-right: 10px;
     @include fontCss($gray, 15px, 20px);
+  }
+
+  strong {
+    position: relative;
+    padding-left: 8px;
+    @include fontCss($gray, 14px, 20px, 800);
+
+    &:before {
+      content: "x";
+      position: absolute;
+      top: 50%;
+      left: 0;
+      @include fontCss($gray, 12px, 20px, 800);
+      transform: translate(0, -50%);
+    }
   }
 }
 
