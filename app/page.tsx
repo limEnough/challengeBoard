@@ -7,10 +7,9 @@ import Board from "./components/board";
 import Calendar from "./lib/calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./lib/date.types";
-import type { ApiSampleData } from './api/api.types';
 import { fetchUserPushList } from "./api/github";
 import '../styles/globals.scss';
-import { Commit } from "./api/github.types";
+import Loading from "./components/loading";
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -18,34 +17,14 @@ const noto = Noto_Sans_KR({
 });
 
 export default function Home() {
-  // #region Api
-  const [loading, setLoading] = useState<boolean>(false);
+  // #region useState
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  // #endregion
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
-  const [userInfo, setUserInfo] = useState<ApiSampleData[]>([]);
-  
-  // #region Data Custom
-  /** 조회한 깃헙 푸시 내역 데이터 커스텀 */
-  const setGithubData = useCallback((userInfo1: Commit[], userInfo2: Commit[]) => {
-    console.log('실행여부');
-
-    setUserInfo([
-      {
-        email: userInfo1[0].auth.email,
-        name: userInfo1[0].auth.name,
-        pushCount: userInfo1.length,
-        attendedDuo: false,
-      },
-      {
-        email: userInfo2[0].auth.email,
-        name: userInfo2[0].auth.name,
-        pushCount: userInfo2.length,
-        attendedDuo: false,
-      }
-    ])
-  }, [userInfo]);
+  const [userInfo, setUserInfo] = useState<Board[]>([]);
+  const [userInfo1, setUserInfo1] = useState<Board>();
+  const [userInfo2, setUserInfo2] = useState<Board>();
   // #endregion
 
   // #region API
@@ -62,23 +41,32 @@ export default function Home() {
         date: selectedDate,
       });
 
+      if (userInfo1) setUserInfo1(userInfo1);
+
       const userInfo2 = await fetchUserPushList({
         username: user2,
         date: selectedDate,
       });
 
-      if (userInfo1 && userInfo2) setGithubData(userInfo1, userInfo2);
+      if (userInfo2) setUserInfo2(userInfo2);
+
     } catch (error) {
       setError('Error getGithubPushList');
     } finally {
       setLoading(false);
     }
-  }, [selectedDate, setGithubData]);
+  }, [selectedDate]);
   // #endregion 
 
+  // #region uesEffect
   useEffect(() => {
     getGithubPushList();
   }, [selectedDate]);
+
+  useEffect(() => {
+    if (userInfo1 && userInfo2) setUserInfo([userInfo1, userInfo2])
+  }, [userInfo1, userInfo2]);
+  // #endregion
 
   return (
     <main className={classNames(styles.main, noto.className)}>
@@ -90,6 +78,12 @@ export default function Home() {
 
       {/* 유저 현황 보드 */}
       <section className={styles.board}>
+      {
+        loading 
+        ?
+        <Loading />
+        :
+        <>
         {
           userInfo && userInfo.map((info, index) => {
             return (
@@ -100,6 +94,8 @@ export default function Home() {
             )
           })
         }
+        </>
+      }
       </section>
     </main>
   );
