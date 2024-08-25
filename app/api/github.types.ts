@@ -5,9 +5,19 @@ interface PushListPayload {
   maxLength?: number;
 }
 
-/** 푸시 내역 commit 정보 */
+/** 푸시 내역 user info */
+interface Actor {
+  id: number;
+  avatar_url: string;
+  gravatar_id: string;
+  display_login: string;
+  login: string;
+  url: string;
+}
+
+/** 푸시 내역 commit info */
 interface Commit {
-  auth: {
+  author: {
     email: string;
     name: string;
   }
@@ -19,14 +29,7 @@ interface Commit {
 
 /** 푸시 내역 response */
 interface PushListResponse {
-  actor: {
-    id: number;
-    avatar_url: string;
-    gravatar_id: string;
-    display_login: string;
-    login: string;
-    url: string;
-  }
+  actor: Actor;
   created_at: string;
   id: string;
   payload: {
@@ -50,6 +53,7 @@ interface PushListResponse {
 
 export type {
   Commit,
+  Actor as GithubUser,
   PushListPayload,
   PushListResponse,
 }
