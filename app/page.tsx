@@ -66,17 +66,15 @@ export default function Home() {
   }, [selectedDate]);
 
   useEffect(() => {
-    if (!userInfo1 && !userInfo2) setUserInfo([]);
-    else {
-      if (userInfo1) {
-        setUserInfo((current) => _.unionBy([...current, userInfo1].filter(item => !!item), name));
-      }
-      if (userInfo2) {
-        setUserInfo((current) => _.unionBy([...current, userInfo2].filter(item => !!item), name));
-      }
-    }
+    const result = [];
+    
+    if (userInfo1) result.push(userInfo1);
+    if (userInfo2) result.push(userInfo2);
+
+    setUserInfo(result)
   }, [userInfo1, userInfo2]);
   // #endregion
+
 
   return (
     <main className={classNames(styles.main, noto.className)}>
