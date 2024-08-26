@@ -8,9 +8,10 @@ import Calendar from "./lib/calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./lib/date.types";
 import { fetchUserPushList } from "./api/github";
-import '../styles/globals.scss';
 import Loading from "./components/loading";
 import Empty from "./components/empty";
+import _ from 'lodash';
+import '../styles/globals.scss';
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -65,10 +66,14 @@ export default function Home() {
   }, [selectedDate]);
 
   useEffect(() => {
-    if (!userInfo1 || !userInfo2) setUserInfo([]);
+    if (!userInfo1 && !userInfo2) setUserInfo([]);
     else {
-      if (userInfo1) setUserInfo((current) => [...current, userInfo1].filter(item => !!item));
-      if (userInfo2) setUserInfo((current) => [...current, userInfo2].filter(item => !!item));
+      if (userInfo1) {
+        setUserInfo((current) => _.unionBy([...current, userInfo1].filter(item => !!item), name));
+      }
+      if (userInfo2) {
+        setUserInfo((current) => _.unionBy([...current, userInfo2].filter(item => !!item), name));
+      }
     }
   }, [userInfo1, userInfo2]);
   // #endregion
