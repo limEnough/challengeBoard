@@ -24,19 +24,20 @@ export default function Home() {
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [userInfo, setUserInfo] = useState<Board[]>([]);
-  const [userInfo1, setUserInfo1] = useState<Board | null>();
-  const [userInfo2, setUserInfo2] = useState<Board | null>();
+  const [userInfo1, setUserInfo1] = useState<Board | null>(null);
+  const [userInfo2, setUserInfo2] = useState<Board | null>(null);
   // #endregion
 
   // #region API
   /** 깃헙 푸시 내역 조회 */
   const getGithubPushList = useCallback(async () => {
-    setLoading(true);
-
     const user1 = process.env.NEXT_PUBLIC_GITHUB_HER_USERNAME as string;
     const user2 = process.env.NEXT_PUBLIC_GITHUB_HIM_USERNAME as string;
 
     try {
+      setLoading(true);
+      setUserInfo([]); //초기화
+
       const userInfo1 = await fetchUserPushList({
         username: user1,
         date: selectedDate,
@@ -47,8 +48,8 @@ export default function Home() {
         date: selectedDate,
       });
 
-      setUserInfo1(userInfo1);
-      setUserInfo2(userInfo2);
+      setUserInfo1(userInfo1 ?? null);
+      setUserInfo2(userInfo2 ?? null);
 
     } catch (error) {
       setError('Error getGithubPushList');
@@ -64,7 +65,11 @@ export default function Home() {
   }, [selectedDate]);
 
   useEffect(() => {
-    if (userInfo1 && userInfo2) setUserInfo([userInfo1, userInfo2])
+    if (!userInfo1 || !userInfo2) setUserInfo([]);
+    else {
+      if (userInfo1) setUserInfo((current) => [...current, userInfo1].filter(item => !!item));
+      if (userInfo2) setUserInfo((current) => [...current, userInfo2].filter(item => !!item));
+    }
   }, [userInfo1, userInfo2]);
   // #endregion
 
@@ -83,22 +88,22 @@ export default function Home() {
         ?
         <Loading />
         :
-        !userInfo.length
-        ?
-        <Empty />
-        :
-        <>
-        {
-          userInfo && userInfo.map((info, index) => {
-            return (
-              <Board
-                info={info}
-                key={`board-${index}`}
-              />
-            )
-          })
-        }
-        </>
+          !userInfo.length
+          ?
+          <Empty />
+          :
+          <>
+          {
+            userInfo && userInfo.map((info, index) => {
+              return (
+                <Board
+                  info={info}
+                  key={`board-${index}`}
+                />
+              )
+            })
+          }
+          </>
       }
       </section>
     </main>
