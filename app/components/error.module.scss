@@ -1,0 +1,13 @@
+.error {
+  background: $white;
+  padding: 80px 0 100px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 0;
+
+  p {
+    margin-top: 30px;
+    @include fontCss($black, 16px, 28px);
+    text-align: center;
+  }
+}

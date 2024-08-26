@@ -10,7 +10,7 @@ import type { SelectedDate } from "./lib/date.types";
 import { fetchUserPushList } from "./api/github";
 import Loading from "./components/loading";
 import Empty from "./components/empty";
-import _ from 'lodash';
+import ErrorPage from "./components/error";
 import '../styles/globals.scss';
 
 const noto = Noto_Sans_KR({
@@ -21,7 +21,7 @@ const noto = Noto_Sans_KR({
 export default function Home() {
   // #region useState
   const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<boolean>(false);
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [userInfo, setUserInfo] = useState<Board[]>([]);
@@ -53,7 +53,7 @@ export default function Home() {
       setUserInfo2(userInfo2 ?? null);
 
     } catch (error) {
-      setError('Error getGithubPushList');
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -67,7 +67,7 @@ export default function Home() {
 
   useEffect(() => {
     const result = [];
-    
+
     if (userInfo1) result.push(userInfo1);
     if (userInfo2) result.push(userInfo2);
 
@@ -75,40 +75,47 @@ export default function Home() {
   }, [userInfo1, userInfo2]);
   // #endregion
 
-
   return (
     <main className={classNames(styles.main, noto.className)}>
-      {/* 캘린더 */}
-      <Calendar
-        date={selectedDate}
-        onChange={setSelectedDate}
-      />
+    {
+      error
+      ?
+      <ErrorPage />
+      :
+      <>
+        {/* 캘린더 */}
+        <Calendar
+          date={selectedDate}
+          onChange={setSelectedDate}
+        />
 
-      {/* 유저 현황 보드 */}
-      <section className={styles.board}>
-      {
-        loading 
-        ?
-        <Loading />
-        :
-          !userInfo.length
+        {/* 유저 현황 보드 */}
+        <section className={styles.board}>
+        {
+          loading 
           ?
-          <Empty />
+          <Loading />
           :
-          <>
-          {
-            userInfo && userInfo.map((info, index) => {
-              return (
-                <Board
-                  info={info}
-                  key={`board-${index}`}
-                />
-              )
-            })
-          }
+            !userInfo.length
+            ?
+            <Empty />
+            :
+            <>
+            {
+              userInfo && userInfo.map((info, index) => {
+                return (
+                  <Board
+                    info={info}
+                    key={`board-${index}`}
+                  />
+                )
+              })
+            }
           </>
-      }
-      </section>
+        }
+        </section>
+      </>
+    }
     </main>
   );
 }
