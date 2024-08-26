@@ -27,7 +27,7 @@
     }
   }
 
-  /* 네비게이션 */
+  /* 네비게이션 (MEMO: 현재 사용 안 함)  */
   &__navigation {
     display: flex;
     justify-content: center;
@@ -50,23 +50,24 @@
   &__month-view {
     /* 요일 */
     &__weekdays {
-      // NOTI: 현재 사용 안 함
-      display: none !important; 
       text-align: center;
       text-transform: uppercase;
       
       &__weekday {
         padding: 10px;
+
+        /* 주말 */
+        &--weekend {
+          abbr {
+            color: $disabled !important;
+          }
+        }
       
         abbr {
           @include fontCss($black, 14px, 14px, 600);
           text-decoration: none !important;
         }
-  
-        abbr[title="일요일"] {
-          color: $point !important;
-        }
-    }
+      }
     }
 
     /* 날짜 */

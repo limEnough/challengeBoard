@@ -19,6 +19,7 @@ const calendar = ({date, onChange}: CalendarProps) => {
       view="month"
       prev2Label={null}
       next2Label={null}
+      showNavigation={false}
       showNeighboringMonth={false}
       formatDay={(locale, date) => format(date, 'dd')}
     />
