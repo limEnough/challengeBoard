@@ -58,8 +58,8 @@ const Board = ({info}: BoardProps) => {
         <Image
           src={true ? 'alphabet--active.svg' : 'alphabet.svg'}
           alt="User Image"
-          width={24}
-          height={32}
+          width={20}
+          height={30}
           priority
         />
       </div>

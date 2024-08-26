@@ -1,0 +1,11 @@
+.empty {
+  width: 100%;
+  padding: 50px 0;
+  background: $white;
+  border-radius: 15px;
+
+  p {
+    @include fontCss($gray, 14px, 14px);
+    text-align: center;
+  }
+}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import classNames from 'classnames';
 import styles from "./page.module.scss";
 import Board from "./components/board";
@@ -10,6 +10,7 @@ import type { SelectedDate } from "./lib/date.types";
 import { fetchUserPushList } from "./api/github";
 import '../styles/globals.scss';
 import Loading from "./components/loading";
+import Empty from "./components/empty";
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -23,8 +24,8 @@ export default function Home() {
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
   const [userInfo, setUserInfo] = useState<Board[]>([]);
-  const [userInfo1, setUserInfo1] = useState<Board>();
-  const [userInfo2, setUserInfo2] = useState<Board>();
+  const [userInfo1, setUserInfo1] = useState<Board | null>();
+  const [userInfo2, setUserInfo2] = useState<Board | null>();
   // #endregion
 
   // #region API
@@ -41,14 +42,13 @@ export default function Home() {
         date: selectedDate,
       });
 
-      if (userInfo1) setUserInfo1(userInfo1);
-
       const userInfo2 = await fetchUserPushList({
         username: user2,
         date: selectedDate,
       });
 
-      if (userInfo2) setUserInfo2(userInfo2);
+      setUserInfo1(userInfo1);
+      setUserInfo2(userInfo2);
 
     } catch (error) {
       setError('Error getGithubPushList');
@@ -82,6 +82,10 @@ export default function Home() {
         loading 
         ?
         <Loading />
+        :
+        !userInfo.length
+        ?
+        <Empty />
         :
         <>
         {
