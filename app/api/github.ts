@@ -1,4 +1,5 @@
 import { isSameDay, parseISO } from 'date-fns';
+import { toZonedTime } from 'date-fns-tz';
 import { PushListPayload, PushListResponse } from './github.types';
 import { Octokit } from '@octokit/rest';
 import { commitListInfo } from '../utils/github';
@@ -14,17 +15,18 @@ export const fetchUserPushList = async ({username, date, maxLength}: PushListPay
   try {
     const { data } = await octokit.activity.listPublicEventsForUser({
       username,
-      per_page: maxLength ?? 30, // 한 페이지당 조회할 최대 푸시 이벤트 갯수
+      per_page: maxLength ?? 100, // 한 페이지당 조회할 최대 푸시 이벤트 갯수
       page: 1,
     });
 
     if (!data.length) return null;
 
     // 푸시 내역 특정 날짜로 필터링
-    const filteredByDate: PushListResponse[] = data.filter((list) => 
-      list.type === 'PushEvent' && isSameDay(parseISO(list.created_at as string), date)
-    );
-    
+    const filteredByDate: PushListResponse[] = data.filter((list) => {
+      const kstDate = toZonedTime(list.created_at as string, 'Asia/Seoul'); 
+      return list.type === 'PushEvent' && isSameDay(kstDate, date);
+    });
+
     if (!filteredByDate.length) return null;
 
     // 유저 정보
