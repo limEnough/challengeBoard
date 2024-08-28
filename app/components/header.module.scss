@@ -13,6 +13,24 @@
 
 .logo {
   display: inline-block;
-  width: 50px;
   height: auto;
+
+  img {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.month {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin-left: 6px;
+  padding: 5px 0;
+  background: $point;
+  border-radius: 50%;
+  @include fontCss($white, 16px, 16px, 800);
+  letter-spacing: -1px;
+  text-align: center;
+  vertical-align: middle;
 }
