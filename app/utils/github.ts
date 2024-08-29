@@ -1,12 +1,7 @@
 import { toZonedTime } from "date-fns-tz";
-import { Commit, GithubUser, PushListResponse } from "../api/github.types";
-import Board from "../components/board";
+import { PushListResponse } from "../api/github.types";
 import { isSameDay } from "date-fns";
-
-interface CommitInfo {
-  userInfo: GithubUser;
-  commitList: Commit[]
-}
+import Board from "../components/board";
 
 /** 특정 날짜의 푸시 내역 조회하기 */
 export const getFilteredPushListByDate = (data: PushListResponse[], date: Date): PushListResponse[] | null => {

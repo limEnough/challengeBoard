@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import classNames from 'classnames';
 import styles from "./page.module.scss";
 import Board from "./components/board";

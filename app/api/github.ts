@@ -12,7 +12,7 @@ export const fetchUserPushList = async ({username, date, maxLength}: PushListPay
   try {
     const { data } = await octokit.activity.listPublicEventsForUser({
       username,
-      per_page: maxLength ?? 150, // 한 페이지당 조회할 최대 푸시 이벤트 갯수
+      per_page: maxLength ?? 100, // 한 페이지당 조회할 최대 푸시 이벤트 갯수
       page: 1,
     });
 
