@@ -3,7 +3,6 @@ import styles from "./header.module.scss";
 import React from "react";
 import Image from "next/image";
 import { getMonth, Month } from "date-fns";
-import { enUS } from "date-fns/locale";
 
 const Header: React.FC = () => {
   const today = new Date();

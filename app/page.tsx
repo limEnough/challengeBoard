@@ -12,6 +12,8 @@ import Loading from "./components/loading";
 import Empty from "./components/empty";
 import ErrorPage from "./components/error";
 import '../styles/globals.scss';
+import { PushListResponse } from "./api/github.types";
+import { getFilteredPushListByDate, makeBoardData } from "./utils/github";
 
 const noto = Noto_Sans_KR({
   subsets: ['latin'], // 또는 preload: false
@@ -24,6 +26,8 @@ export default function Home() {
   const [error, setError] = useState<boolean>(false);
 
   const [selectedDate, setSelectedDate] = useState<SelectedDate>(new Date());
+  const [user1GithubPushList, setUser1GithubPushList] = useState<PushListResponse[] | null>(null);
+  const [user2GithubPushList, setUser2GithubPushList] = useState<PushListResponse[] | null>(null);
   const [userInfo, setUserInfo] = useState<Board[]>([]);
   const [userInfo1, setUserInfo1] = useState<Board | null>(null);
   const [userInfo2, setUserInfo2] = useState<Board | null>(null);
@@ -37,8 +41,7 @@ export default function Home() {
 
     try {
       setLoading(true);
-      setUserInfo([]); //초기화
-
+      
       const userInfo1 = await fetchUserPushList({
         username: user1,
         date: selectedDate,
@@ -49,20 +52,34 @@ export default function Home() {
         date: selectedDate,
       });
 
-      setUserInfo1(userInfo1 ?? null);
-      setUserInfo2(userInfo2 ?? null);
-
+      setUser1GithubPushList(userInfo1 ?? null);
+      setUser2GithubPushList(userInfo2 ?? null);
     } catch (error) {
       setError(true);
     } finally {
       setLoading(false);
     }
   }, [selectedDate]);
-  // #endregion 
+  // #endregion
+
+  // #region Func
+  /** 날짜 필터링한 커밋 데이터 가져오기 */
+  const getCommitDataByDate = useCallback(async () => {
+    if (!user1GithubPushList?.length || !user2GithubPushList?.length) return;
+
+    setUserInfo([]); //초기화
+
+    const filteredUser1ByDate = getFilteredPushListByDate(user1GithubPushList, selectedDate);
+    const filteredUser2ByDate = getFilteredPushListByDate(user2GithubPushList, selectedDate);
+
+    if (filteredUser1ByDate) setUserInfo1(makeBoardData(filteredUser1ByDate));
+    if (filteredUser2ByDate) setUserInfo2(makeBoardData(filteredUser2ByDate));
+  }, [selectedDate])
+  // #endregion
 
   // #region uesEffect
   useEffect(() => {
-    getGithubPushList();
+    getCommitDataByDate();
   }, [selectedDate]);
 
   useEffect(() => {
@@ -74,6 +91,11 @@ export default function Home() {
     setUserInfo(result)
   }, [userInfo1, userInfo2]);
   // #endregion
+
+  // 초기 실행
+  useEffect(() => {
+    getGithubPushList();
+  }, []);
 
   return (
     <main className={classNames(styles.main, noto.className)}>
