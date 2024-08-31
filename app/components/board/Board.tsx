@@ -40,7 +40,7 @@ const Board = ({info}: BoardProps) => {
         {/* TODO: 상세 페이지 */}
         <Link href='/' className={styles.link}>
           <Image
-            src={info.pushCount > 0 ? 'grass--active.svg' : 'grass.svg'}
+            src={info.pushCount > 0 ? '/images/grass--active.svg' : '/images/grass.svg'}
             alt="User Image"
             width={24}
             height={34}
@@ -56,7 +56,7 @@ const Board = ({info}: BoardProps) => {
 
         {/* info.attendedDuo */}
         <Image
-          src={true ? 'alphabet--active.svg' : 'alphabet.svg'}
+          src={true ? '/images/alphabet--active.svg' : '/images/alphabet.svg'}
           alt="User Image"
           width={20}
           height={30}

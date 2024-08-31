@@ -6,7 +6,7 @@ const ErrorPage: React.FC = () => {
   return (
     <div className={styles.error}>
       <Image
-        src="/error.svg"
+        src="/images/error.svg"
         alt="Error Icon"
         width={50}
         height={50}
