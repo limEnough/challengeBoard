@@ -10,6 +10,15 @@ const __dirname = path.dirname(__filename); // 변환된 경로의 디렉터리 
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  /*
+    두번씩 렌더링 되는 케이스 방지
+    React는 컴포넌트를 렌더링하기 위해 두 단계를 거친다.
+      1. 렌더링: render 함수를 호출해 이전값과 비교
+      2. 변화: 계산값 반영
+    stict 모드는 렌더링 단계 메서드에 부작용이 있는지 검사하는데, 진단을 위한 목적으로 메서드를 두번씩 호출한다.
+    개발 모드에서만 적용되는 내용이지만 토스트 팝업 또한 두번 호출되는 것을 보고 미사용 처리를 했다.
+   */
+  reactStrictMode: false,
   experimental: {
     /*
       Next.js는 기본적으로 Suspense 사용 페이지에서 SSR을 통해 준비되지 않은 상태가 있으면 CSR로 백업해서 페이지를 다시 렌더링하는 bailout 메커니즘을 사용
