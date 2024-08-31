@@ -1,3 +1,5 @@
+// TODO: Gmail 에서 듀오링고 정보 가져오기
+ 
 const { google } = require('googleapis');
 const fs = require('fs');
 const path = require('path');
