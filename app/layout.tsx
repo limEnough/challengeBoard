@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import Header from "./components/header";
+import Header from "./components/header/Header";
+import ToastProvider from "./lib/toastProvider/ToastProvider";
 
 export const metadata: Metadata = {
   title: "Do It Daily",
@@ -16,6 +17,7 @@ export default function RootLayout({
       <body>
         {/* Layout UI */}
         <div className="root-layout">
+          <ToastProvider />
           <Header />
           {children}
         </div>

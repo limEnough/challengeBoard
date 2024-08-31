@@ -82,20 +82,26 @@ export default function Home() {
     else setUserData2(null);
 
     setLoading(false);
-  }, [selectedDate]);
+  }, [selectedDate, user1GithubPushList, user2GithubPushList]);
+
+  /** 토스트 팝업 */
+  const toastInit = useCallback(() => {
+    toast.info("오늘도 반가워요!");
+  }, [])
 
   /** 페이지 초기 실행 함수 (비동기 함수로 분리) */
   const pageInit = useCallback(async () => {
     await getGithubPushList();
     getCommitDataByDate();
-  }, [])
+    toastInit();
+  }, [getGithubPushList, getCommitDataByDate, toastInit])
   // #endregion
 
   // #region uesEffect
   /** 날짜 업데이트 감지 */
   useEffect(() => {
     getCommitDataByDate();
-  }, [selectedDate]);
+  }, [selectedDate, getCommitDataByDate]);
 
   /** 유저 별 데이터 업데이트 감지 */
   useEffect(() => {
@@ -111,6 +117,7 @@ export default function Home() {
   // 초기 실행
   useEffect(() => {
     pageInit();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
