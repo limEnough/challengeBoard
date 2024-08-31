@@ -3,16 +3,17 @@
 import { useCallback, useEffect, useState } from "react";
 import classNames from 'classnames';
 import styles from "./page.module.scss";
-import Board from "./components/board";
-import Calendar from "./lib/calendar";
+import Board from "./components/board/Board";
+import Calendar from "./lib/calendar/Calendar";
 import { Noto_Sans_KR } from 'next/font/google';
-import type { SelectedDate } from "./lib/date.types";
+import type { SelectedDate } from "./types/date.types";
 import { fetchUserPushList } from "./api/github";
-import Loading from "./components/loading";
-import Empty from "./components/empty";
-import ErrorPage from "./components/error";
-import { PushListResponse } from "./api/github.types";
+import Loading from "./components/loading/loading";
+import Empty from "./components/empty/Empty";
+import ErrorPage from "./components/error/Error";
+import { PushListResponse } from "./types/github.types";
 import { getFilteredPushListByDate, makeBoardData } from "./utils/github";
+import { toast } from 'react-toastify';
 import '../styles/globals.scss';
 
 const noto = Noto_Sans_KR({

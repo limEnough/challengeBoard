@@ -1,8 +1,8 @@
 import React from "react"
 import { format } from "date-fns";
 ;import Calendar from "react-calendar";
-import type { SelectedDate } from "./date.types";
-import '../../styles/calendar-custom.scss';
+import type { SelectedDate } from "../../types/date.types";
+import '../../../styles/calendar-custom.scss';
 
 interface CalendarProps {
   date: SelectedDate;

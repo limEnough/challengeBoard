@@ -1,7 +1,7 @@
 import { toZonedTime } from "date-fns-tz";
-import { PushListResponse } from "../api/github.types";
+import { PushListResponse } from "../types/github.types";
 import { isSameDay } from "date-fns";
-import Board from "../components/board";
+import Board from "../components/board/Board";
 
 /** 특정 날짜의 푸시 내역 조회하기 */
 export const getFilteredPushListByDate = (data: PushListResponse[], date: Date): PushListResponse[] | null => {

@@ -1,4 +1,4 @@
-import { PushListPayload, PushListResponse } from './github.types';
+import { PushListPayload, PushListResponse } from '../types/github.types';
 import { Octokit } from '@octokit/rest';
 
 // Octokit 인스턴스 생성
