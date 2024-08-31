@@ -93,15 +93,15 @@ export default function Home() {
   const pageInit = useCallback(async () => {
     await getGithubPushList();
     getCommitDataByDate();
-    toastInit();
-  }, [getGithubPushList, getCommitDataByDate, toastInit])
+    // toastInit(); // 토스트팝업 시범 적용
+  }, [getGithubPushList, getCommitDataByDate])
   // #endregion
 
   // #region uesEffect
   /** 날짜 업데이트 감지 */
   useEffect(() => {
     getCommitDataByDate();
-  }, [selectedDate, getCommitDataByDate]);
+  }, [getCommitDataByDate]);
 
   /** 유저 별 데이터 업데이트 감지 */
   useEffect(() => {

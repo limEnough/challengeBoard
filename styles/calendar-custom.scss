@@ -14,6 +14,29 @@
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 
+  /* Props Class */
+  &.disable {
+    &-prev {
+      .react-calendar__navigation__prev-button {
+        /* 비노출 처리 (display: none은 정렬 틀어져서 X) */
+        opacity: 0;
+        /* 클릭 이벤트를 막음 */
+        pointer-events: none; 
+        cursor: default; 
+      }
+    }
+
+    &-next {
+      .react-calendar__navigation__next-button {
+        /* 비노출 처리 (display: none은 정렬 틀어져서 X) */
+        opacity: 0;
+        /* 클릭 이벤트를 막음 */
+        pointer-events: none; 
+        cursor: default; 
+      }
+    }
+  }
+
   /* 공통 */
   button {
     &:enabled {
@@ -21,28 +44,35 @@
         cursor: pointer;
       }
     }
-
-    abbr {
-      @include fontCss($black, 14px, 18px);
-    }
   }
 
-  /* 네비게이션 (MEMO: 현재 사용 안 함)  */
+  /* 네비게이션 */
   &__navigation {
     display: flex;
     justify-content: center;
-    height: 40px;
+    height: 24px;
     margin-bottom: 10px;
   
     &__label {
+      /* 클릭 이벤트를 막음 */
+      pointer-events: none; 
+      cursor: default; 
       flex-grow: 0 !important;
-      @include fontCss($black, 15px, 15px, 600);
+      @include fontCss($black, 16px, 16px, 600);
     }
-  
+
     &__arrow {
-      width: 40px;
+      width: 24px;
+      height: 24px;
       margin: 0 20px;
-      @include fontCss($black, 20px, 20px, 800);
+      font-size: 0;
+      background: url('/images/arrow.svg') no-repeat center/ 20px auto;
+      border-radius: 50%;
+      transform: rotate(0);
+
+      &.react-calendar__navigation__prev-button {
+        transform: rotate(180deg);
+      }
     }
   }
 
@@ -52,6 +82,11 @@
     &__weekdays {
       text-align: center;
       text-transform: uppercase;
+
+      abbr {
+        text-decoration: none;
+        @include fontCss($black, 14px, 18px);
+      }
       
       &__weekday {
         padding: 10px;
@@ -59,13 +94,8 @@
         /* 주말 */
         &--weekend {
           abbr {
-            color: $disabled !important;
+            color: $disabled;
           }
-        }
-      
-        abbr {
-          @include fontCss($black, 14px, 14px, 600);
-          text-decoration: none !important;
         }
       }
     }
@@ -89,7 +119,7 @@
 
         /* 주말 */
         &--weekend {
-          color: #ccc;
+          color: #ccc !important;
         }
       }
     }
