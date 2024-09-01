@@ -4,23 +4,29 @@ import { format, getMonth } from "date-fns";
 import type { SelectedDate } from "../../types/date.types";
 import '../../../styles/calendar-custom.scss';
 
-interface CalendarProps {
-  date: SelectedDate;
-  onChange: (value: SelectedDate) => void;
-}
+// #region Calendar lib Types
+type ValuePiece = Date | null;
+type Range<T> = [T, T];
+type Value = ValuePiece | Range<ValuePiece>;
 
 interface NavigateProps {
-  action: 'prev' | 'next';
-  activeStartDate: Date;
-  value: Date;
-  view: 'month';
+  action: 'prev' | 'prev2' | 'next' | 'next2' | 'onChange' | 'drillUp' | 'drillDown';
+  activeStartDate: Date | null;
+  value: Value;
+  view: 'century' | 'decade' | 'year' | 'month';
+}
+// #endregion
+
+interface CalendarProps {
+  date: SelectedDate;
+  onChange: (value: Value, event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const CalendarComponent = ({date, onChange}: CalendarProps) => {
   const [disabledNavClass, setDisabledNavClass] = useState('');
 
   const handleNavigation = ({action, activeStartDate, value}: NavigateProps) => {
-    const currentMonth = getMonth(activeStartDate);
+    const currentMonth = getMonth(activeStartDate as Date);
     const todayMonth = getMonth(new Date());
     
     if (action === 'prev' && todayMonth - currentMonth > 0) {
@@ -54,3 +60,4 @@ const CalendarComponent = ({date, onChange}: CalendarProps) => {
 }
 
 export default CalendarComponent;
+export type { Value as UpdatedDate }

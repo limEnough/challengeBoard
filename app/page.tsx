@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import classNames from 'classnames';
 import styles from "./page.module.scss";
 import Board from "./components/board/Board";
-import CalendarComponent from "./lib/calendar/Calendar";
+import CalendarComponent, { UpdatedDate } from "./lib/calendar/Calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./types/date.types";
 import { fetchUserPushList } from "./api/github";
@@ -64,6 +64,11 @@ export default function Home() {
   // #endregion
 
   // #region Func
+  /** 날짜 선택값 업데이트 */
+  const handleSelectedDate = (value: UpdatedDate) => {
+    setSelectedDate(value as Date);
+  }
+
   /** 날짜 필터링한 커밋 데이터 가져오기 */
   const getCommitDataByDate = useCallback(async () => {
     if (!user1GithubPushList?.length || !user2GithubPushList?.length) return;
@@ -131,7 +136,7 @@ export default function Home() {
         {/* 캘린더 */}
         <CalendarComponent
           date={selectedDate}
-          onChange={setSelectedDate}
+          onChange={handleSelectedDate}
         />
 
         {/* 유저 현황 보드 */}
