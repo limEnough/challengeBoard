@@ -1,3 +1,83 @@
+.dim {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 .modal {
-  // TODO: 모달 컴포넌트 스타일 입히기
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 280px;
+  padding: 24px 24px 70px;
+  background: #fff;
+  border-radius: 20px;
+  transform: translate(-50%, -50%);
+
+  h3 {
+    padding-bottom: 15px;
+    border-bottom: 1px solid $disabled;
+    @include fontCss($black, 18px, 18px, 800);
+  }
+
+  ul {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    margin-top: 20px;
+    padding-bottom: 10px;
+    max-height: 280px;
+ 
+    li {
+      &:not(:first-of-type) {
+        margin-top: 10px;
+      }
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 11px;
+        left: 0;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: $black;
+      }
+
+      position: relative;
+      padding-left: 10px;
+      @include fontCss($black, 14px, 22px, 400);
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  padding: 10px;
+
+  button {
+    &:not(:first-of-type) {
+      margin-left: 10px;
+    }
+
+    width: 100%;
+    height: 100%;
+    border-radius: 14px;
+  }
+}
+
+.cancel {
+  background: $point;
+  @include fontCss($white, 15px, 15px, 600);
 }
