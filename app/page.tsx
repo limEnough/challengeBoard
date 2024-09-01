@@ -8,7 +8,6 @@ import Calendar from "./lib/calendar/Calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./types/date.types";
 import { fetchUserPushList } from "./api/github";
-import Loading from "./components/loading/Loading";
 import Empty from "./components/empty/Empty";
 import ErrorPage from "./components/error/Error";
 import { PushListResponse } from "./types/github.types";
@@ -139,7 +138,7 @@ export default function Home() {
         {
           loading 
           ?
-          <Loading />
+          <></>
           :
             !boardData.length
             ?
