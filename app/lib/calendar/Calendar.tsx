@@ -16,7 +16,7 @@ interface NavigateProps {
   view: 'month';
 }
 
-const calendar = ({date, onChange}: CalendarProps) => {
+const CalendarComponent = ({date, onChange}: CalendarProps) => {
   const [disabledNavClass, setDisabledNavClass] = useState('');
 
   const handleNavigation = ({action, activeStartDate, value}: NavigateProps) => {
@@ -53,4 +53,4 @@ const calendar = ({date, onChange}: CalendarProps) => {
   )
 }
 
-export default calendar;
+export default CalendarComponent;

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import classNames from 'classnames';
 import styles from "./page.module.scss";
 import Board from "./components/board/Board";
-import Calendar from "./lib/calendar/Calendar";
+import CalendarComponent from "./lib/calendar/Calendar";
 import { Noto_Sans_KR } from 'next/font/google';
 import type { SelectedDate } from "./types/date.types";
 import { fetchUserPushList } from "./api/github";
@@ -129,7 +129,7 @@ export default function Home() {
       :
       <>
         {/* 캘린더 */}
-        <Calendar
+        <CalendarComponent
           date={selectedDate}
           onChange={setSelectedDate}
         />
