@@ -41,6 +41,11 @@
   align-items: center;
   margin-top: 15px;
 
+  button {
+    display: flex;
+    align-items: center;
+  }
+
   span {
     display: inline-block;
     margin-right: 10px;

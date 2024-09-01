@@ -1,34 +1,34 @@
 import React, { useCallback, useEffect, useState } from "react";
-import classNames from "classnames";
 import { createPortal } from "react-dom";
 import styles from "./modal.module.scss";
 
 interface ModalProps {
-  isOpen: boolean;
   contents: string[];
   useProcess?: boolean;
   processFunc?: (() => void) | null;
   processLabel?: string;
+  closeModal: (value: boolean) => void;
 }
-const Modal = ({isOpen, useProcess, contents, processFunc = null, processLabel = '확인'}: ModalProps) => {
+const Modal = ({useProcess, contents, processFunc = null, processLabel = '확인', closeModal}: ModalProps) => {
   const [mounted, setMounted] = useState<boolean>(false);
-  const [modalOpen, setModalOpen] = useState<boolean>(isOpen);
 
   const handleCloseModal = useCallback(() => {
-    setModalOpen(false);
-  }, [])
+    closeModal(false);
+  }, [closeModal])
 
   const handleProcessModal = useCallback(async () => {
     if (!processFunc) return;
     
     await processFunc();
-    setModalOpen(false);
-  }, [processFunc])
+    closeModal(false);
+  }, [processFunc, closeModal])
 
-  const createModalDom = () => {
+  const createModalDom = useCallback(() => {
     return (
-      <div className={classNames(styles.dim, modalOpen ? 'modal-open' : '')}>
+      <div className={styles.dim}>
         <main className={styles.modal}>
+          <h3>커밋 내역</h3>
+
           <ul>
             {
               contents?.length 
@@ -41,11 +41,11 @@ const Modal = ({isOpen, useProcess, contents, processFunc = null, processLabel =
             }
           </ul>
   
-          <div className="styles.actions">
+          <div className={styles.actions}>
             <button 
               type="button" 
               onClick={handleCloseModal} 
-              className="styles.cancel"
+              className={styles.cancel}
             >
               닫기
             </button>
@@ -55,7 +55,7 @@ const Modal = ({isOpen, useProcess, contents, processFunc = null, processLabel =
               <button 
                 type="button" 
                 onClick={handleProcessModal} 
-                className="styles.process"
+                className={styles.process}
               >
                 {processLabel}
               </button>
@@ -66,16 +66,32 @@ const Modal = ({isOpen, useProcess, contents, processFunc = null, processLabel =
         </main>
       </div>
     )
-  }
+  }, [contents, handleCloseModal, handleProcessModal, processFunc, processLabel, useProcess])
+
+  const deleteModalDom = useCallback(() => {
+    const rootModal = document.getElementById('root-modal');
+      
+    if (rootModal) rootModal.innerHTML = ''; 
+  }, [])
 
   useEffect(() => {
     setMounted(true);
-    return () => setMounted(false);
+
+    // 컴포넌트가 언마운트 될 때 클린업 호출
+    return () => {
+      setMounted(false);
+      deleteModalDom();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 서버사이드 렌더링 방지
   if (typeof window === "undefined") return <></>;
 
+  // mounted가 true일 때만 모달을 렌더링
   return mounted ? createPortal(createModalDom(), document.getElementById("root-modal") as HTMLElement) : <></>;
+
+  // return createModalDom();
 }
 
 export default Modal;

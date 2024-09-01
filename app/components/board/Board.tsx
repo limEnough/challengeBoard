@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import styles from "./board.module.scss";
 import Image from 'next/image';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import Modal from '../modal/Modal';
 
 interface Board {
@@ -17,6 +17,10 @@ interface BoardProps {
 
 const Board = ({info}: BoardProps) => {
   const [openDetails, setOpenDetails] = useState(false);
+
+  const closeModal = useCallback((value: boolean) => {
+    setOpenDetails(value);
+  }, [])
 
   return (
     <>
@@ -72,7 +76,13 @@ const Board = ({info}: BoardProps) => {
       </div>
 
       {/* Detail Modal */}
-      <Modal isOpen={openDetails} contents={info.commitMessages} />
+      {
+        openDetails
+        ?
+        <Modal contents={info.commitMessages} closeModal={closeModal}/>
+        :
+        <></>
+      }
     </>
   );
 }
