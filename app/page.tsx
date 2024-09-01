@@ -10,6 +10,7 @@ import type { SelectedDate } from "./types/date.types";
 import { fetchUserPushList } from "./api/github";
 import Empty from "./components/empty/Empty";
 import ErrorPage from "./components/error/Error";
+import Loading from "./components/loading/Loading";
 import { PushListResponse } from "./types/github.types";
 import { getFilteredPushListByDate, makeBoardData } from "./utils/github";
 import { toast } from 'react-toastify';
@@ -138,7 +139,7 @@ export default function Home() {
         {
           loading 
           ?
-          <></>
+          <Loading />
           :
             !boardData.length
             ?
