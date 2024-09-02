@@ -27,7 +27,7 @@ const CalendarComponent = ({date, onChange}: CalendarProps) => {
 
   const handleNavigation = ({action, activeStartDate, value}: NavigateProps) => {
     const currentMonth = getMonth(activeStartDate as Date);
-    const todayMonth = getMonth(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }));
+    const todayMonth = getMonth(getClientKoreanTime());
     
     if (action === 'prev' && todayMonth - currentMonth > 0) {
       // 이전달로 이동한 상태

@@ -39,7 +39,7 @@ const nextConfig = {
     ],
   },
   /*
-    서버특 타임존 설정
+    서버 측 타임존 설정
   */
   env: {
     TZ: 'Asia/Seoul',
