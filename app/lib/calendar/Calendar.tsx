@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { format, getMonth } from "date-fns";
 ;import Calendar from "react-calendar";
 import type { SelectedDate } from "../../types/date.types";
-import { getClientKoreanTime } from "@/app/utils/date";
+import { getGlobalKoreaTime } from "@/app/utils/date";
 import '../../../styles/calendar-custom.scss';
 
 // #region Calendar lib Types
@@ -28,7 +28,7 @@ const CalendarComponent = ({date, onChange}: CalendarProps) => {
 
   const handleNavigation = ({action, activeStartDate, value}: NavigateProps) => {
     const currentMonth = getMonth(activeStartDate as Date);
-    const todayMonth = getMonth(getClientKoreanTime());
+    const todayMonth = getMonth(getGlobalKoreaTime());
     
     if (action === 'prev' && todayMonth - currentMonth > 0) {
       // 이전달로 이동한 상태

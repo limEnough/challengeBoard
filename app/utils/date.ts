@@ -1,5 +1,7 @@
+import { toZonedTime } from "date-fns-tz";
+
 /* 클라이언트 측 한국 시간 반환 */
-const getClientKoreanTime = () => {
+const getClientKoreaTime = () => {
   const today = new Date();
 
   const options = {
@@ -10,11 +12,21 @@ const getClientKoreanTime = () => {
 }
 
 /* 서버 측 한국 시간 반환 */
-const getServerKoreanTime = () => {
-  return new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+const getServerKoreaTime = () => {
+  const today = new Date();
+
+  return today.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+}
+
+/* 글로벌 한국 시간 반환 */
+const getGlobalKoreaTime = () => {
+  const today = new Date();
+
+  return toZonedTime(today, 'Asia/Seoul'); 
 }
 
 export {
-  getClientKoreanTime,
-  getServerKoreanTime,
+  getClientKoreaTime,
+  getServerKoreaTime,
+  getGlobalKoreaTime,
 }
