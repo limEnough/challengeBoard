@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { format, getMonth } from "date-fns";
 ;import Calendar from "react-calendar";
 import type { SelectedDate } from "../../types/date.types";
+import { getClientKoreanTime } from "@/app/utils/date";
 import '../../../styles/calendar-custom.scss';
 
 // #region Calendar lib Types

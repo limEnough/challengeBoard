@@ -13,3 +13,8 @@ const getClientKoreanTime = () => {
 const getServerKoreanTime = () => {
   return new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
 }
+
+export {
+  getClientKoreanTime,
+  getServerKoreanTime,
+}
