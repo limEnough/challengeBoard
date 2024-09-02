@@ -27,7 +27,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
 
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(setHours(setMinutes(setSeconds(new Date(), 0), 0), 0));
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(setHours(setMinutes(setSeconds(new Date().toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }), 0), 0), 0));
 
   const [user1GithubPushList, setUser1GithubPushList] = useState<PushListResponse[] | null>(null);
   const [user2GithubPushList, setUser2GithubPushList] = useState<PushListResponse[] | null>(null);
