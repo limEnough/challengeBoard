@@ -5,6 +5,7 @@ import ToastProvider from "./lib/toastProvider/ToastProvider";
 export const metadata: Metadata = {
   title: "Do It Daily",
   description: "Limenough and Jeondev's daily routine challenge board",
+  manifest: "/manifest.json",
 };
 
 export default function RootLayout({
