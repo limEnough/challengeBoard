@@ -47,7 +47,8 @@ const CalendarComponent = ({date, onChange}: CalendarProps) => {
       className={disabledNavClass}
       onChange={onChange} 
       value={date} 
-      locale="ko"
+      // 공식문서 예시 hu-HU
+      locale="ko-KO"
       calendarType="gregory" 
       view="month"
       prev2Label={null}
