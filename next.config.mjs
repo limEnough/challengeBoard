@@ -2,11 +2,16 @@
 // https://velog.io/@juice-han/dirname-is-not-defined-in-ES-module-scope-%EC%98%A4%EB%A5%98%EC%9D%98-%EC%9B%90%EC%9D%B8%EA%B3%BC-%ED%95%B4%EA%B2%B0%EB%B0%A9%EB%B2%95
 // #endregion
 
+import nextPWA from 'next-pwa';
 import path from "path"; // 파일이나 디렉토리 경로를 다루는 path 모듈
 import { fileURLToPath } from 'url'; // 일반적인 파일 url을 Node.js 파일 path로 바꿔주는 함수
 
 const __filename = fileURLToPath(import.meta.url); // server.js 의 파일 url을 가져와서 fileURLToPath 로 경로 변환하여 저장
 const __dirname = path.dirname(__filename); // 변환된 경로의 디렉터리 경로를 __dirname 에 저장
+
+const withPWA = nextPWA({
+  dest: 'public',  // Service Worker와 manifest 파일이 생성될 위치
+});
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -46,4 +51,4 @@ const nextConfig = {
   },
 };
 
-export default nextConfig;
+export default withPWA(nextConfig);
