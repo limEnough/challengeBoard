@@ -14,7 +14,6 @@ import Loading from "./components/loading/Loading";
 import { PushListResponse } from "./types/github.types";
 import { getFilteredPushListByDate, makeBoardData } from "./utils/github";
 import { toast } from 'react-toastify';
-import { setHours, setMinutes, setSeconds } from "date-fns";
 import { getGlobalKoreaTime } from "./utils/date";
 import '../styles/globals.scss';
 
@@ -28,7 +27,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<boolean>(false);
   
-  const [selectedDate, setSelectedDate] = useState<SelectedDate>(setHours(setMinutes(setSeconds(getGlobalKoreaTime(), 0), 0), 0));
+  const [selectedDate, setSelectedDate] = useState<SelectedDate>(getGlobalKoreaTime());
 
   const [user1GithubPushList, setUser1GithubPushList] = useState<PushListResponse[] | null>(null);
   const [user2GithubPushList, setUser2GithubPushList] = useState<PushListResponse[] | null>(null);

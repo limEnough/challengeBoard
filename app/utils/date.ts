@@ -20,9 +20,13 @@ const getServerKoreaTime = () => {
 
 /* 글로벌 한국 시간 반환 */
 const getGlobalKoreaTime = () => {
-  const today = new Date();
+  // 사용자 시간대
+  const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-  return toZonedTime(today, 'Asia/Seoul'); 
+  // 사용자의 로컬 시간으로 변환
+  const localDate = toZonedTime(new Date(), userTimeZone);
+  
+  return localDate;
 }
 
 export {
