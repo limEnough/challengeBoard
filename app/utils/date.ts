@@ -24,9 +24,10 @@ const getGlobalKoreaTime = () => {
   const userTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
   // 사용자의 로컬 시간으로 변환
-  const localDate = toZonedTime(new Date(), userTimeZone);
-  
-  return localDate;
+  // return toZonedTime(new Date(), userTimeZone);
+
+  // 한국 시간으로 변환
+  return toZonedTime(new Date(), 'Asia/Seoul');
 }
 
 export {
