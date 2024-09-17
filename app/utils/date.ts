@@ -1,11 +1,12 @@
 import { toZonedTime } from "date-fns-tz";
+const koreaTimeZone = process.env.NEXT_PUBLIC_TIME_ZONE || "Asia/Seoul";
 
 /* 클라이언트 측 한국 시간 반환 */
 const getClientKoreaTime = () => {
   const today = new Date();
 
   const options = {
-    timeZone: 'Asia/Seoul',
+    timeZone: koreaTimeZone,
   };
 
   return new Intl.DateTimeFormat('ko-KR', options).format(today);
@@ -15,7 +16,7 @@ const getClientKoreaTime = () => {
 const getServerKoreaTime = () => {
   const today = new Date();
 
-  return today.toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' });
+  return today.toLocaleString('ko-KR', { timeZone: koreaTimeZone });
 }
 
 /* 글로벌 한국 시간 반환 */
@@ -27,7 +28,7 @@ const getGlobalKoreaTime = () => {
   // return toZonedTime(new Date(), userTimeZone);
 
   // 한국 시간으로 변환
-  return toZonedTime(new Date(), 'Asia/Seoul');
+  return toZonedTime(new Date(), koreaTimeZone);
 }
 
 export {
